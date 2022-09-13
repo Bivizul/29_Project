@@ -18,6 +18,7 @@ fun Rootspbk(
         A29ProjectTheme {
             Spbkimgbackload()
             NavGraph()
+
         }
     }
 }
