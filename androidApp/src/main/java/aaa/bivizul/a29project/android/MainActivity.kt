@@ -3,6 +3,7 @@ package aaa.bivizul.a29project.android
 import aaa.bivizul.a29project.data.spbkkutil.checkSpbknet
 import aaa.bivizul.a29project.data.spbkkutil.getSpbkdlg
 import aaa.bivizul.a29project.ui.root.Rootspbk
+import aaa.bivizul.a29project.ui.spbkwidget.Spbkimgbackload
 import aaa.bivizul.a29project.ui.theme.A29ProjectTheme
 import android.os.Bundle
 import androidx.activity.compose.setContent

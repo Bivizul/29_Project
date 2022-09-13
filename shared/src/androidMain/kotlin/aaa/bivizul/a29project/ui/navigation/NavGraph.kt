@@ -1,5 +1,8 @@
 package aaa.bivizul.a29project.ui.navigation
 
+import aaa.bivizul.a29project.data.spbkstores.SpbkStore
+import aaa.bivizul.a29project.data.spbkstores.SportsbookStore
+import aaa.bivizul.a29project.ui.screen.BetweenScreen
 import aaa.bivizul.a29project.ui.screen.DetailScreen
 import aaa.bivizul.a29project.ui.screen.HomeScreen
 import aaa.bivizul.a29project.ui.screen.SpbkhomeScreen
@@ -15,30 +18,36 @@ import androidx.navigation.compose.rememberNavController
 @Composable
 actual fun NavGraph() {
 
+    println("NavGraph")
+
     val navHostController: NavHostController = rememberNavController()
     val startDestination: String = MainDestination.Spbkhome.route
 
     val context = LocalContext.current
     val activity = LocalContext.current as Activity
 
-//    val draftresRepository = DraftresRepository()
+    val spbkStore = SpbkStore()
+    val sportsbookStore = SportsbookStore()
 
     NavHost(navController = navHostController, startDestination = startDestination) {
 
         composable(route = startDestination) {
             SpbkhomeScreen(
                 navController = navHostController,
-//                context = context,
-//                activity = activity,
-//                draftresRepository = draftresRepository
+                context = context,
+                activity = activity,
+                spbkStore = spbkStore,
+                sportsbookStore = sportsbookStore
             )
         }
 
-        composable(route = MainDestination.Home.route) {
-            HomeScreen(
+        composable(route = MainDestination.Between.route) {
+            BetweenScreen(
                 navController = navHostController,
 //                context = context,
 //                activity = activity,
+                spbkStore = spbkStore,
+//                sportsbookStore = sportsbookStore
             )
             BackHandler() {
                 activity.finish()
@@ -46,12 +55,28 @@ actual fun NavGraph() {
             }
         }
 
-        composable(route = MainDestination.Detail.route) {
+        composable(route = MainDestination.Home.route) {
+            HomeScreen(
+                navController = navHostController,
+                context = context,
+                activity = activity,
+
+                sportsbookStore = sportsbookStore
+            )
+            BackHandler() {
+                activity.finish()
+                System.exit(0)
+            }
+        }
+
+        composable(route = MainDestination.Detail.route + "/{IdElement}") { backStackEntry ->
+
             DetailScreen(
 //                navController = navHostController,
 //                context = context,
 //                activity = activity,
-//                draftresRepository = draftresRepository
+                sportsbookStore = sportsbookStore,
+                idElement = backStackEntry.arguments?.getString("IdElement") ?: "1"
             )
         }
     }

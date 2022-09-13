@@ -46,6 +46,8 @@ kotlin {
                 implementation(Kotlin.serializationProtobuf)
                 implementation(Util.settings)
                 implementation(Util.onesignal)
+
+                implementation("com.alialbaali.kamel:kamel-image:0.4.0")
             }
         }
         val commonTest by getting {
