@@ -6,9 +6,12 @@ import aaa.bivizul.a29project.ui.screen.BetweenScreen
 import aaa.bivizul.a29project.ui.screen.DetailScreen
 import aaa.bivizul.a29project.ui.screen.HomeScreen
 import aaa.bivizul.a29project.ui.screen.SpbkhomeScreen
+import aaa.bivizul.a29project.ui.web.*
 import android.app.Activity
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -79,5 +82,31 @@ actual fun NavGraph() {
                 idElement = backStackEntry.arguments?.getString("IdElement") ?: "1"
             )
         }
+
+//        composable(route = MainDestination.Web.route) {
+//
+//            WebContent(
+////                navController = navHostController,
+////                context = context,
+////                activity = activity,
+////                sportsbookStore = sportsbookStore,
+////                idElement = backStackEntry.arguments?.getString("IdElement") ?: "1"
+//            )
+//        }
+
+        composable(route = MainDestination.Web.route) {
+            val webViewState = rememberWebViewState("https://vk.com")
+            WebView(
+                state = webViewState,
+                modifier = Modifier.fillMaxSize(),
+                navigator = rememberWebViewNavigator()
+            )
+        }
+
+//        composable(route = MainDestination.Web.route) {
+//            WebBrowser(
+//            )
+//        }
+
     }
 }

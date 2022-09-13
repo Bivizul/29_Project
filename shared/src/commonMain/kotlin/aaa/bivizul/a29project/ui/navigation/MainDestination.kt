@@ -5,4 +5,5 @@ sealed class MainDestination(val route: String) {
     object Between : MainDestination(route = "Between")
     object Home : MainDestination(route = "Home")
     object Detail : MainDestination(route = "Detail")
+    object Web : MainDestination(route = "Web")
 }

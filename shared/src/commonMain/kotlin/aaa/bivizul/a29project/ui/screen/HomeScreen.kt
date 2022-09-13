@@ -12,10 +12,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.Card
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Text
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -66,6 +63,11 @@ fun HomeScreen(
                     textAlign = TextAlign.Center,
                     style = Typography.h3
                 )
+                Button(
+                    onClick = { navController.navigate(MainDestination.Web.route) }
+                ){
+                    Text("Web")
+                }
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(200.dp),
                     verticalArrangement = Arrangement.Center,

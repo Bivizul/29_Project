@@ -63,6 +63,8 @@ kotlin {
                 implementation(ComposeUtils.coil)
                 implementation(JetpackCompose.material)
                 implementation(JetpackCompose.navigation)
+
+                implementation ("com.google.accompanist:accompanist-webview:0.26.3-beta")
             }
         }
         val androidTest by getting
