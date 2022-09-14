@@ -7,8 +7,6 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
-import android.view.KeyEvent
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
@@ -483,7 +481,7 @@ actual data class WebViewError(
  * Creates a WebView state that is remembered across Compositions.
  *
  * @param url The url to load in the WebView
- * @param additionalHttpHeaders Optional, additional HTTP headers that are passed to [WebView.loadUrl].
+ * @param additionalHttpHeaders Optional, additional HTTP headers that are passed to [WebViewKt.loadUrl].
  *                              Note that these headers are used for all subsequent requests of the WebView.
  */
 @Composable

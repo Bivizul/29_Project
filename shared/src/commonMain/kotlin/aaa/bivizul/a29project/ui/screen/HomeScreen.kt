@@ -3,6 +3,7 @@ package aaa.bivizul.a29project.ui.screen
 import aaa.bivizul.a29project.data.spbkkutil.Spbkcon
 import aaa.bivizul.a29project.data.spbkkutil.getSpbkdlg
 import aaa.bivizul.a29project.data.spbkkutil.screenSpbkexit
+import aaa.bivizul.a29project.data.spbkkutil.spbkencod
 import aaa.bivizul.a29project.data.spbkstores.SportsbookStore
 import aaa.bivizul.a29project.ui.navigation.MainDestination
 import aaa.bivizul.a29project.ui.navigation.NavController
@@ -48,6 +49,8 @@ fun HomeScreen(
 
     val sportbookList by sportsbookStore.sportsbook.collectAsState()
 
+    val u = "https://web.telegram.org/k/"
+    val ue = spbkencod(u)
 //    println("sportbookList : $sportbookList")
 
 //    println("sportbookList : $sportbookList")
@@ -66,10 +69,14 @@ fun HomeScreen(
                 )
                 Button(
                     onClick = {
-                        navController.navigate(MainDestination.Web.route)
+//                        navController.navigate(MainDestination.Web.route)
+
+                        navController.navigate(MainDestination.Web.route + "/${ue}")
+//                        navController.navigate(MainDestination.Web.route)
+
 //                        screenSpbkexit(activity)
                     }
-                ){
+                ) {
                     Text("Web")
                 }
                 LazyVerticalGrid(

@@ -6,6 +6,8 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.telephony.TelephonyManager
 import com.onesignal.OneSignal
+import java.net.URLEncoder
+import java.nio.charset.StandardCharsets
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -79,4 +81,9 @@ actual fun screenSpbkexit(spbkact: Any) {
     val activity = spbkact as Activity
     activity.finish()
     System.exit(0)
+}
+
+actual fun spbkencod(s:String):String{
+    val encodedUrl = URLEncoder.encode(s, StandardCharsets.UTF_8.toString())
+    return encodedUrl
 }

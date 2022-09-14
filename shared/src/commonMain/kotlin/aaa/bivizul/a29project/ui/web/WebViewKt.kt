@@ -9,13 +9,20 @@ import kotlinx.coroutines.CoroutineScope
 
 
 @Composable
-fun WebView(
-    state: WebViewState,
+fun WebViewKt(
+    state: String,
+//    state: WebViewState,
     modifier: Modifier = Modifier,
     navigator: WebViewNavigator,
-    activity : Any
+    activity: Any
 ) {
-    WebViewImpl(state, modifier, navigator,activity)
+    WebViewImpl(
+        rememberWebViewState(state),
+//        state,
+        modifier,
+        navigator,
+        activity
+    )
 }
 
 @Composable
@@ -67,11 +74,14 @@ sealed class LoadingState {
  * Creates a WebView state that is remembered across Compositions.
  *
  * @param url The url to load in the WebView
- * @param additionalHttpHeaders Optional, additional HTTP headers that are passed to [WebView.loadUrl].
+ * @param additionalHttpHeaders Optional, additional HTTP headers that are passed to [WebViewKt.loadUrl].
  *                              Note that these headers are used for all subsequent requests of the WebView.
  */
 @Composable
-expect fun rememberWebViewState(url: String, additionalHttpHeaders: Map<String, String> = emptyMap()): WebViewState
+expect fun rememberWebViewState(
+    url: String,
+    additionalHttpHeaders: Map<String, String> = emptyMap()
+): WebViewState
 
 /**
  * Creates a WebView state that is remembered across Compositions.

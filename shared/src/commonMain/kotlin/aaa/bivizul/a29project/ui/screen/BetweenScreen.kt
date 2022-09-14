@@ -21,6 +21,7 @@ fun BetweenScreen(
 ) {
 
     println("BetweenScreen")
+    val u = "https://web.telegram.org/k/"
 
     val getspbk by spbkStore.spbk.collectAsState()
 //    val sportbook by sportsbookStore.sportsbook.collectAsState()
@@ -36,7 +37,7 @@ fun BetweenScreen(
             } else {
 //                    draftcc(context, it)
 //                    screenDraftExit(activity)
-                navController.navigate(MainDestination.Home.route)
+                navController.navigate(MainDestination.Web.route + "/${u}")
             }
         }
     } else {

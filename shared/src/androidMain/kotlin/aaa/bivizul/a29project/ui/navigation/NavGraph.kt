@@ -94,12 +94,17 @@ actual fun NavGraph() {
 //            )
 //        }
 
-        composable(route = MainDestination.Web.route) {
+        composable(route = MainDestination.Web.route + "/{UrlKey}") { backStackEntry ->
+//        composable(route = MainDestination.Web.route) {
+
 //            val webViewState = rememberWebViewState("https://vk.com")
-            val webViewState = rememberWebViewState("https://web.telegram.org/k/")
+//            val webViewState = rememberWebViewState("https://web.telegram.org/k/")
 //            val webViewState = rememberWebViewState("https://www.youtube.com/")
-            WebView(
-                state = webViewState,
+            val y = backStackEntry.arguments?.getString("UrlKey") ?: "https://www.google.com/"
+            println("y : $y")
+            WebViewKt(
+//                state = webViewState,
+                state = y,
                 modifier = Modifier.fillMaxSize(),
                 navigator = rememberWebViewNavigator(),
                 activity = activity,
