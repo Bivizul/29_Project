@@ -95,11 +95,14 @@ actual fun NavGraph() {
 //        }
 
         composable(route = MainDestination.Web.route) {
-            val webViewState = rememberWebViewState("https://vk.com")
+//            val webViewState = rememberWebViewState("https://vk.com")
+            val webViewState = rememberWebViewState("https://web.telegram.org/k/")
+//            val webViewState = rememberWebViewState("https://www.youtube.com/")
             WebView(
                 state = webViewState,
                 modifier = Modifier.fillMaxSize(),
-                navigator = rememberWebViewNavigator()
+                navigator = rememberWebViewNavigator(),
+                activity = activity,
             )
         }
 

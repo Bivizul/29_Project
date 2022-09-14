@@ -12,16 +12,18 @@ import kotlinx.coroutines.CoroutineScope
 fun WebView(
     state: WebViewState,
     modifier: Modifier = Modifier,
-    navigator: WebViewNavigator
+    navigator: WebViewNavigator,
+    activity : Any
 ) {
-    WebViewImpl(state, modifier, navigator)
+    WebViewImpl(state, modifier, navigator,activity)
 }
 
 @Composable
 internal expect fun WebViewImpl(
     state: WebViewState,
     modifier: Modifier = Modifier,
-    navigator: WebViewNavigator
+    navigator: WebViewNavigator,
+    activity: Any
 )
 
 

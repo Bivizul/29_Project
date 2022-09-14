@@ -2,6 +2,7 @@ package aaa.bivizul.a29project.ui.screen
 
 import aaa.bivizul.a29project.data.spbkkutil.Spbkcon
 import aaa.bivizul.a29project.data.spbkkutil.getSpbkdlg
+import aaa.bivizul.a29project.data.spbkkutil.screenSpbkexit
 import aaa.bivizul.a29project.data.spbkstores.SportsbookStore
 import aaa.bivizul.a29project.ui.navigation.MainDestination
 import aaa.bivizul.a29project.ui.navigation.NavController
@@ -64,7 +65,10 @@ fun HomeScreen(
                     style = Typography.h3
                 )
                 Button(
-                    onClick = { navController.navigate(MainDestination.Web.route) }
+                    onClick = {
+                        navController.navigate(MainDestination.Web.route)
+//                        screenSpbkexit(activity)
+                    }
                 ){
                     Text("Web")
                 }

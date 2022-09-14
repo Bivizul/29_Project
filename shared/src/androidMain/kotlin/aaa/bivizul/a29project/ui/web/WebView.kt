@@ -1,27 +1,18 @@
 package aaa.bivizul.a29project.ui.web
 
+import android.annotation.SuppressLint
+import android.app.Activity
+import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Build.VERSION
-import android.os.Build.VERSION_CODES
+import android.graphics.BitmapFactory
+import android.net.Uri
+import android.provider.MediaStore
+import android.view.View
 import android.view.ViewGroup
-import android.webkit.WebChromeClient
-import android.webkit.WebResourceError
-import android.webkit.WebResourceRequest
-import android.webkit.WebView
-import android.webkit.WebViewClient
+import android.webkit.*
+import android.widget.FrameLayout
 import androidx.activity.compose.BackHandler
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.Immutable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.Stable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.rememberUpdatedState
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -31,6 +22,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 /**
  * A wrapper around the Android View WebView to provide a basic WebView composable.
@@ -56,10 +48,11 @@ internal fun WebView(
     modifier: Modifier = Modifier,
     captureBackPresses: Boolean = true,
     navigator: WebViewNavigator = rememberWebViewNavigator(),
+    activity: Any,
     onCreated: (WebView) -> Unit = {},
     onDispose: (WebView) -> Unit = {},
-    client: AccompanistWebViewClient = remember { AccompanistWebViewClient() },
-    chromeClient: AccompanistWebChromeClient = remember { AccompanistWebChromeClient() }
+    client: AccompanistWebViewClient = remember { AccompanistWebViewClient(activity = activity) },
+    chromeClient: AccompanistWebChromeClient = remember { AccompanistWebChromeClient(spbkactivity = activity) }
 ) {
     var webView by remember { mutableStateOf<WebView?>(null) }
 
@@ -107,6 +100,10 @@ internal fun WebView(
         // AndroidViews are not supported by preview, bail early
         if (runningInPreview) return@AndroidView
 
+        //
+        setSettings(view)
+        //
+
         when (val content = state.content) {
             is WebContent.Url -> {
                 val url = content.url
@@ -125,6 +122,27 @@ internal fun WebView(
     }
 }
 
+// my custom////////////////////////////////////////////////////////////////////
+@SuppressLint("SetJavaScriptEnabled")
+private fun setSettings(webView: WebView) {
+    val webSettings = webView.settings
+    webSettings.javaScriptEnabled = true
+    webSettings.loadWithOverviewMode = true
+    webSettings.allowFileAccess = true
+    webSettings.domStorageEnabled = true
+    webSettings.builtInZoomControls = true
+    webSettings.displayZoomControls = false
+    webSettings.useWideViewPort = true
+    webSettings.setSupportZoom(true)
+    webSettings.userAgentString = webSettings.userAgentString.replace("; wv", "")
+
+    //////////////////////
+    webSettings.setPluginState(WebSettings.PluginState.OFF)
+    webSettings.setCacheMode(WebSettings.LOAD_NO_CACHE)
+    webSettings.setAllowContentAccess(true)
+
+}
+
 /**
  * AccompanistWebViewClient
  *
@@ -133,11 +151,12 @@ internal fun WebView(
  * As Accompanist Web needs to set its own web client to function, it provides this intermediary
  * class that can be overriden if further custom behaviour is required.
  */
-open class AccompanistWebViewClient : WebViewClient() {
+open class AccompanistWebViewClient(activity: Any) : WebViewClient() {
     open lateinit var state: WebViewState
         internal set
     open lateinit var navigator: WebViewNavigator
         internal set
+
 
     override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
         super.onPageStarted(view, url, favicon)
@@ -206,9 +225,24 @@ open class AccompanistWebViewClient : WebViewClient() {
  * As Accompanist Web needs to set its own web client to function, it provides this intermediary
  * class that can be overriden if further custom behaviour is required.
  */
-open class AccompanistWebChromeClient : WebChromeClient() {
+@Suppress("DEPRECATION")
+open class AccompanistWebChromeClient(spbkactivity: Any) : WebChromeClient() {
+
+    //////////////////
+    val activity = spbkactivity as Activity
+    var filePathCallback: ValueCallback<Array<Uri>>? = null
+    private val REQUEST_CODE = 100
+    ////////////////
+
     open lateinit var state: WebViewState
         internal set
+
+    /////////////
+    private var mCustomView: View? = null
+    private var mCustomViewCallback: CustomViewCallback? = null
+    private var mOriginalOrientation = 0
+    private var mOriginalSystemUiVisibility = 0
+///////////////////////////
 
     override fun onReceivedTitle(view: WebView?, title: String?) {
         super.onReceivedTitle(view, title)
@@ -224,6 +258,62 @@ open class AccompanistWebChromeClient : WebChromeClient() {
         if (state.loadingState is LoadingState.Finished) return
         state.loadingState = LoadingState.Loading(newProgress / 100.0f)
     }
+
+    //////////////////////
+    override fun onShowFileChooser(
+        view: WebView,
+        filePath: ValueCallback<Array<Uri>>,
+        fileChooserParams: FileChooserParams
+    ): Boolean {
+        filePathCallback = filePath
+        val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        intent.putExtra(Intent.EXTRA_TITLE, "Image Chooser")
+        activity.startActivityForResult(intent, REQUEST_CODE)
+        return true
+    }
+
+    fun getFilePath():ValueCallback<Array<Uri>>{
+        return filePathCallback!!
+    }
+
+    override fun getDefaultVideoPoster(): Bitmap? {
+        return if (mCustomView == null) {
+            null
+        } else BitmapFactory.decodeResource(activity.applicationContext.resources, 2130837573)
+    }
+
+    //////////////// good
+    override fun onHideCustomView() {
+        (activity.window.decorView as FrameLayout).removeView(mCustomView)
+        mCustomView = null
+        activity.window.decorView.systemUiVisibility = mOriginalSystemUiVisibility
+        activity.requestedOrientation = mOriginalOrientation
+        mCustomViewCallback!!.onCustomViewHidden()
+        mCustomViewCallback = null
+    }
+
+    override fun onShowCustomView(
+        paramView: View?,
+        paramCustomViewCallback: CustomViewCallback?,
+    ) {
+        if (mCustomView != null) {
+            onHideCustomView()
+            return
+        }
+        mCustomView = paramView
+        mOriginalSystemUiVisibility = activity.window.decorView.systemUiVisibility
+        mOriginalOrientation = activity.requestedOrientation
+        mCustomViewCallback = paramCustomViewCallback
+        (activity.window.decorView as FrameLayout).addView(
+            mCustomView,
+            FrameLayout.LayoutParams(-1, -1)
+        )
+        activity.window.decorView.systemUiVisibility =
+            3846 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+    }
+
+
+
 }
 
 actual sealed class WebContent {
@@ -382,7 +472,10 @@ actual data class WebViewError(
  *                              Note that these headers are used for all subsequent requests of the WebView.
  */
 @Composable
-actual fun rememberWebViewState(url: String, additionalHttpHeaders: Map<String, String>): WebViewState =
+actual fun rememberWebViewState(
+    url: String,
+    additionalHttpHeaders: Map<String, String>
+): WebViewState =
 // Rather than using .apply {} here we will recreate the state, this prevents
     // a recomposition loop when the webview updates the url itself.
     remember(url, additionalHttpHeaders) {
