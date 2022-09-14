@@ -7,6 +7,8 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
+import android.view.KeyEvent
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
@@ -58,6 +60,20 @@ internal fun WebView(
 
     BackHandler(captureBackPresses && navigator.canGoBack) {
         webView?.goBack()
+//        val a = activity as Activity
+//        a.finish()
+        //////////////
+//        webView?.setOnKeyListener(View.OnKeyListener { _, keyCode, event ->
+//            if (keyCode == KeyEvent.KEYCODE_BACK &&
+//                event.action == MotionEvent.ACTION_UP &&
+//                webView!!.canGoBack()
+//            ) {
+//                webView?.goBack()
+//                return@OnKeyListener true
+//            }
+//            false
+//        })
+        //////////////////////
     }
 
     LaunchedEffect(webView, navigator) {
@@ -272,7 +288,7 @@ open class AccompanistWebChromeClient(spbkactivity: Any) : WebChromeClient() {
         return true
     }
 
-    fun getFilePath():ValueCallback<Array<Uri>>{
+    fun getFilePath(): ValueCallback<Array<Uri>> {
         return filePathCallback!!
     }
 
@@ -311,7 +327,6 @@ open class AccompanistWebChromeClient(spbkactivity: Any) : WebChromeClient() {
         activity.window.decorView.systemUiVisibility =
             3846 or View.SYSTEM_UI_FLAG_LAYOUT_STABLE
     }
-
 
 
 }
