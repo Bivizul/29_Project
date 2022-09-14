@@ -1,8 +1,7 @@
 package aaa.bivizul.a29project.ui.screen
 
-import aaa.bivizul.a29project.data.spbkkutil.Spbkcon
-import aaa.bivizul.a29project.data.spbkkutil.getSpbkdlg
-import aaa.bivizul.a29project.data.spbkkutil.screenSpbkexit
+import aaa.bivizul.a29project.data.spbkkutil.*
+import aaa.bivizul.a29project.data.spbkkutil.getWebActivity
 import aaa.bivizul.a29project.data.spbkkutil.spbkencod
 import aaa.bivizul.a29project.data.spbkstores.SportsbookStore
 import aaa.bivizul.a29project.ui.navigation.MainDestination
@@ -78,6 +77,13 @@ fun HomeScreen(
                     }
                 ) {
                     Text("Web")
+                }
+                Button(
+                    onClick = {
+                        getWebActivity(activity)
+                    }
+                ) {
+                    Text("getWebActivity")
                 }
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(200.dp),

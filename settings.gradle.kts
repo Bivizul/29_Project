@@ -24,6 +24,7 @@ pluginManagement {
 //        id("kotlin-parcelize")
 
         id("com.onesignal.androidsdk.onesignal-gradle-plugin").version(onesignalVersion)
+        id("org.jetbrains.kotlin.android") version "1.7.10"
     }
 
 }

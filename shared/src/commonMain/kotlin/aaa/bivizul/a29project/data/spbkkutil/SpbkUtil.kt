@@ -10,3 +10,4 @@ internal expect fun checkSpbknet(spbkcon: Any): Boolean
 internal expect fun sigSpbkoff()
 internal expect fun screenSpbkexit(spbkact: Any)
 internal expect fun spbkencod(s:String):String
+internal expect fun getWebActivity(spbkact: Any)

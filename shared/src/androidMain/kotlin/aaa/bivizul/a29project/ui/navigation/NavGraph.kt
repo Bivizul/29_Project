@@ -101,7 +101,6 @@ actual fun NavGraph() {
 //            val webViewState = rememberWebViewState("https://web.telegram.org/k/")
 //            val webViewState = rememberWebViewState("https://www.youtube.com/")
             val y = backStackEntry.arguments?.getString("UrlKey") ?: "https://www.google.com/"
-            println("y : $y")
             WebViewKt(
 //                state = webViewState,
                 state = y,

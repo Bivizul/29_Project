@@ -242,10 +242,13 @@ open class AccompanistWebViewClient(activity: Any) : WebViewClient() {
 @Suppress("DEPRECATION")
 open class AccompanistWebChromeClient(spbkactivity: Any) : WebChromeClient() {
 
+
+
     //////////////////
     val activity = spbkactivity as Activity
     var filePathCallback: ValueCallback<Array<Uri>>? = null
     private val REQUEST_CODE = 100
+
     ////////////////
 
     open lateinit var state: WebViewState

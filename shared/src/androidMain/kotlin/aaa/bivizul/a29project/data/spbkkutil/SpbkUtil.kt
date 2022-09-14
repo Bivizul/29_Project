@@ -3,6 +3,7 @@ package aaa.bivizul.a29project.data.spbkkutil
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
 import android.telephony.TelephonyManager
 import com.onesignal.OneSignal
@@ -86,4 +87,11 @@ actual fun screenSpbkexit(spbkact: Any) {
 actual fun spbkencod(s:String):String{
     val encodedUrl = URLEncoder.encode(s, StandardCharsets.UTF_8.toString())
     return encodedUrl
+}
+
+actual fun getWebActivity(spbkact: Any){
+    val activity = spbkact as Activity
+    val a = Class.forName("aaa.bivizul.a29project.android.WebActivity")
+    val intent = Intent(activity,a)
+    activity.startActivity(intent)
 }
