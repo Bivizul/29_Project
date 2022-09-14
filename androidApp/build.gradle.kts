@@ -2,11 +2,9 @@ import aaa.bivizul.a29project.buildSrc.*
 
 plugins {
     kotlin("android")
-//    kotlin("plugin.parcelize")
     id("com.android.application")
     id("org.jetbrains.compose")
     id("kotlin-parcelize")
-
     id("com.onesignal.androidsdk.onesignal-gradle-plugin")
 }
 
@@ -40,9 +38,7 @@ dependencies {
     implementation(MaterialDesign.materialDesign)
     implementation(ComposeUtils.activity)
     implementation(compose.foundation)
-    implementation(Util.onesignal)
     implementation(Kotlin.serializationJson)
-    implementation("androidx.appcompat:appcompat:1.5.1")
-    implementation("com.google.android.material:material:1.4.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation(Util.onesignal)
+    implementation(Util.advancedWebView)
 }

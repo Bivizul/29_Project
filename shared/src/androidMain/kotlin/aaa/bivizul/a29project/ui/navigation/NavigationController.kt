@@ -25,10 +25,12 @@ actual fun NavHost(
     startDestination: String,
     route: String? = null,
     builder: NavGraphBuilder.() -> Unit,
-) = _NavHost(navController = navController,
+) = _NavHost(
+    navController = navController,
     startDestination = startDestination,
     route = route,
-    builder = builder)
+    builder = builder
+)
 
 @Suppress("ACTUAL_FUNCTION_WITH_DEFAULT_ARGUMENTS")
 actual fun NavGraphBuilder.composable(

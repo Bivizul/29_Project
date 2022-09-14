@@ -2,26 +2,21 @@ package aaa.bivizul.a29project.buildSrc
 
 object Version {
 
-    const val compile_sdk_version = 33
-    const val min_sdk_version = 24
-    const val target_sdk_version = compile_sdk_version
-    const val kotlin = "1.7.10"
-    const val agp = "7.2.2"
     const val coroutines_version = "1.6.4"
     const val compose_multiplatform = "1.1.0"
     const val compose_version = "1.2.1"
     const val nav_compose = "2.4.1"
-    const val compose_navigation = "2.5.1"
-    const val jetbrains_binary_compatibility_validator = "0.10.0"
-    const val coil_version = "2.2.0"
+    const val accompanist_version = "0.26.3-beta"
+    const val kamel_version = "0.4.0"
+    const val compose_navigation_version = "2.5.1"
     const val activity_compose_version = "1.5.1"
     const val appcompat = "1.5.1"
     const val core_ktx_version = "1.8.0"
     const val material_design_version = "1.6.1"
-    const val onesignal = "4.8.2"
+    const val onesignal_version = "4.8.2"
     const val onesignal_plugin = "0.14.0"
     const val ktor_version = "2.1.0"
-    const val napier_version = "2.6.1"
+    const val advancedwebview_version = "v3.2.1"
     const val settings_version = "0.9"
     const val serialization_version = "1.4.0"
 }
@@ -38,9 +33,9 @@ object JetpackCompose {
 }
 
 object ComposeUtils {
-    const val coil = "io.coil-kt:coil-compose:${Version.coil_version}"
     const val activity = "androidx.activity:activity-compose:${Version.activity_compose_version}"
-    const val navigation = "androidx.navigation:navigation-compose:${Version.compose_navigation}"
+    const val navigation = "androidx.navigation:navigation-compose:${Version.compose_navigation_version}"
+    const val accompanistWebview = "com.google.accompanist:accompanist-webview:${Version.accompanist_version}"
 }
 
 object MaterialDesign {
@@ -56,11 +51,7 @@ object Ktor {
 }
 
 object Kotlin {
-    const val validator = "org.jetbrains.kotlinx:binary-compatibility-validator:${Version.jetbrains_binary_compatibility_validator}"
-    const val serializationJson =
-        "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.serialization_version}"
-    const val serializationProtobuf =
-        "org.jetbrains.kotlinx:kotlinx-serialization-protobuf:${Version.serialization_version}"
+    const val serializationJson = "org.jetbrains.kotlinx:kotlinx-serialization-json:${Version.serialization_version}"
 }
 
 object KotlinCoroutines {
@@ -69,11 +60,8 @@ object KotlinCoroutines {
 }
 
 object Util {
-    const val napier = "io.github.aakira:napier:${Version.napier_version}"
     const val settings = "com.russhwolf:multiplatform-settings:${Version.settings_version}"
-    const val onesignal = "com.onesignal:OneSignal:${Version.onesignal}"
-}
-
-object Coil {
-    const val coil = "io.coil-kt:coil:${Version.coil_version}"
+    const val onesignal = "com.onesignal:OneSignal:${Version.onesignal_version}"
+    const val advancedWebView = "com.github.delight-im:Android-AdvancedWebView:${Version.advancedwebview_version}"
+    const val kamel = "com.alialbaali.kamel:kamel-image:${Version.kamel_version}"
 }

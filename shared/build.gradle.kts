@@ -2,14 +2,10 @@ import aaa.bivizul.a29project.buildSrc.*
 
 plugins {
     kotlin("multiplatform")
-//    kotlin("plugin.parcelize")
+    kotlin("plugin.serialization")
     id("com.android.library")
     id("org.jetbrains.compose")
-    kotlin("plugin.serialization")
     id("kotlin-parcelize")
-
-//    id("com.onesignal.androidsdk.onesignal-gradle-plugin")
-
 }
 
 kotlin {
@@ -32,22 +28,16 @@ kotlin {
                 implementation(compose.foundation)
                 implementation(compose.material)
                 implementation(compose.ui)
-//                implementation(compose.preview)
-
-//                implementation(JetpackCompose.navigation)
                 implementation(Ktor.core)
                 implementation(Ktor.logging)
                 implementation(Ktor.negotiation)
                 implementation(Ktor.json)
                 implementation(Ktor.cio)
                 implementation(KotlinCoroutines.core)
-//                implementation(Util.napier)
                 implementation(Kotlin.serializationJson)
-                implementation(Kotlin.serializationProtobuf)
                 implementation(Util.settings)
                 implementation(Util.onesignal)
-
-                implementation("com.alialbaali.kamel:kamel-image:0.4.0")
+                implementation(Util.kamel)
             }
         }
         val commonTest by getting {
@@ -59,12 +49,9 @@ kotlin {
             dependencies{
                 implementation(AndroidxSupport.appcompat)
                 implementation(AndroidxSupport.core_ktx)
-                implementation(Coil.coil)
-                implementation(ComposeUtils.coil)
                 implementation(JetpackCompose.material)
                 implementation(JetpackCompose.navigation)
-
-                implementation ("com.google.accompanist:accompanist-webview:0.26.3-beta")
+                implementation (ComposeUtils.accompanistWebview)
             }
         }
         val androidTest by getting

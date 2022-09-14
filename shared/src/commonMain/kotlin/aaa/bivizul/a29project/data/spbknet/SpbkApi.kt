@@ -47,10 +47,7 @@ class SpbkApi {
 
     suspend fun getSportsbook(): List<Sportsbook> {
         val url = URLSPORTSBOOK
-        val response = client.get{ base(url)}
-
-        println("SpbkApi getSportsbook : ${response.status}")
-
+        val response = client.get { base(url) }
         val body = response.body<List<Sportsbook>>()
         return body
     }
@@ -62,9 +59,6 @@ class SpbkApi {
             contentType(ContentType.Application.Json)
             setBody(spbk)
         }
-
-        println("SpbkApi getGetspbk : ${response.status}")
-
         val body = response.body<Getspbk>()
         return body
     }

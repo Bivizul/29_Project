@@ -1,8 +1,6 @@
 package aaa.bivizul.a29project.ui.screen
 
-import aaa.bivizul.a29project.data.spbkkutil.*
-import aaa.bivizul.a29project.data.spbkkutil.getWebActivity
-import aaa.bivizul.a29project.data.spbkkutil.spbkencod
+import aaa.bivizul.a29project.data.spbkkutil.Spbkcon
 import aaa.bivizul.a29project.data.spbkstores.SportsbookStore
 import aaa.bivizul.a29project.ui.navigation.MainDestination
 import aaa.bivizul.a29project.ui.navigation.NavController
@@ -13,14 +11,15 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
-import androidx.compose.material.*
+import androidx.compose.material.Card
+import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,27 +31,9 @@ fun HomeScreen(
     modifier: Modifier = Modifier,
     navController: NavController,
     sportsbookStore: SportsbookStore,
-    context: Any,
-    activity: Any,
 ) {
 
-    println("HomeScreen")
-
-//    LaunchedEffect(Unit) {
-//        try {
-//            sportsbookStore.getSportsbook()
-//        } catch (e: Exception) {
-//            getSpbkdlg(context, activity)
-//        }
-//    }
-
     val sportbookList by sportsbookStore.sportsbook.collectAsState()
-
-    val u = "https://web.telegram.org/k/"
-    val ue = spbkencod(u)
-//    println("sportbookList : $sportbookList")
-
-//    println("sportbookList : $sportbookList")
 
     if (sportbookList != null) {
         sportbookList?.let { list ->
@@ -66,27 +47,8 @@ fun HomeScreen(
                     textAlign = TextAlign.Center,
                     style = Typography.h3
                 )
-                Button(
-                    onClick = {
-//                        navController.navigate(MainDestination.Web.route)
-
-                        navController.navigate(MainDestination.Web.route + "/${ue}")
-//                        navController.navigate(MainDestination.Web.route)
-
-//                        screenSpbkexit(activity)
-                    }
-                ) {
-                    Text("Web")
-                }
-                Button(
-                    onClick = {
-                        getWebActivity(activity)
-                    }
-                ) {
-                    Text("getWebActivity")
-                }
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(200.dp),
+                    columns = GridCells.Adaptive(150.dp),
                     verticalArrangement = Arrangement.Center,
                 ) {
                     items(list) { sportsbook ->
@@ -95,15 +57,14 @@ fun HomeScreen(
                             modifier = Modifier
                                 .padding(4.dp)
                                 .height(50.dp),
-//                                .fillMaxWidth(),
                             elevation = 8.dp,
-                            backgroundColor = MaterialTheme.colors.surface
+                            backgroundColor = MaterialTheme.colors.primary
                         ) {
                             Text(
                                 text = sportsbook.title,
                                 fontWeight = FontWeight.Bold,
                                 fontSize = 14.sp,
-                                color = Color.Black,
+                                color = MaterialTheme.colors.onPrimary,
                                 textAlign = TextAlign.Center,
                                 modifier = Modifier.padding(16.dp)
                             )

@@ -78,20 +78,10 @@ actual fun sigSpbkoff() {
     OneSignal.disablePush(true)
 }
 
-actual fun screenSpbkexit(spbkact: Any) {
-    val activity = spbkact as Activity
-    activity.finish()
-    System.exit(0)
-}
-
-actual fun spbkencod(s:String):String{
-    val encodedUrl = URLEncoder.encode(s, StandardCharsets.UTF_8.toString())
-    return encodedUrl
-}
-
-actual fun getWebActivity(spbkact: Any){
+actual fun getWebActivity(spbkact: Any, spbkurl: String) {
     val activity = spbkact as Activity
     val a = Class.forName("aaa.bivizul.a29project.android.WebActivity")
-    val intent = Intent(activity,a)
-    activity.startActivity(intent)
+    val intent = Intent(activity, a)
+    val put = intent.putExtra(Spbkcon.SPBKKOR, spbkurl)
+    activity.startActivity(put)
 }
